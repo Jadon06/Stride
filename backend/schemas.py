@@ -1,32 +1,40 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 from typing import Optional
 from datetime import datetime
 
 class userCreate(BaseModel):
     first_name: str
     last_name: str
-    email: str
-    password: str = Field(..., min_length=10, max_length=20)
+    email: EmailStr
+    password: str
     phone_number: Optional[str] = None
-    
+    goal_steps: Optional[int] = 5000
 
 class userUpdate(BaseModel):
     first_name: str
     last_name: str
-    email: str
-    password: str = Field(..., min_length=10, max_length=20)
+    email: EmailStr
+    password: str
     phone_number: Optional[str] = None
+    goal_steps: Optional[int] = 5000
 
 class userReturn(BaseModel):
     first_name: str
     last_name: str
-    email: str
-    password: str = Field(..., min_length=10, max_length=20)
+    email: EmailStr
+    password: str
     phone_number: Optional[str] = None
+    goal_steps: Optional[int] = 5000
     
     class Config:
         orm_mode = True
 
 class userSteps(BaseModel):
     step_count_daily: int
-    goal_steps: Optional[int] = 5000
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    id: Optional[str] = None
